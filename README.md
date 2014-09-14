@@ -1,2 +1,3 @@
-picasso-point
+Picasso-point
 =============
+A meeting room canvas
