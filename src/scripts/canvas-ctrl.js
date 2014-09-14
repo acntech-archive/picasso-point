@@ -35,10 +35,10 @@ angular.module('clientApp.controllers').controller('CanvasCtrl', function ($scop
     var data = JSON.parse(msg.data);
     var userName = data.userId;
 
-    $scope.drawers[userName] = data.color;
-    $scope.$apply();
+    if (userName) {
+      $scope.drawers[userName] = data.color;
+      $scope.$apply();
 
-    if (data.points) {
       data.points.forEach(function (e) {
         drawPixel(e.x, e.y, data.color);
       });
