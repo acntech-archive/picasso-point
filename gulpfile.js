@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var serve = require('gulp-serve');
-var coveralls = require('gulp-coveralls');
 
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
@@ -18,17 +17,19 @@ gulp.task('lint', function () {
     .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('test', function (done) {
+gulp.task('test', ['default'], function (done) {
+  del(['./coverage']);
   karma.start({
     configFile: __dirname + '/karma.conf.js',
     browsers: ['PhantomJS'],
     reporters: ['progress', 'coverage'],
     coverageReporter: {
       type: 'lcov',
-      dir: 'coverage/'
+      dir: 'coverage/',
+      subdir: '.'
     },
     preprocessors: {
-      'src/scripts/**/*.js': ['coverage']
+      'build/scripts/**/*.js': ['coverage']
     },
     singleRun: true
   }, done);
@@ -38,11 +39,6 @@ gulp.task('tdd', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js'
   }, done);
-});
-
-gulp.task('coveralls', ['test'], function () {
-  return gulp.src('coverage/**/lcov.info')
-    .pipe(coveralls());
 });
 
 gulp.task('clean', function (cb) {
@@ -65,7 +61,7 @@ gulp.task('views', function () {
   gulp.src('./src/views/**/*.html')
     .pipe(gulp.dest('./build/views'));
 
-  gulp.src( './src/index.html')
+  gulp.src('./src/index.html')
     .pipe(gulp.dest('./build'));
 });
 
@@ -87,4 +83,4 @@ gulp.task('developClient', ['copyFiles', 'watch', 'serve']);
 
 gulp.task('develop', ['developClient', 'tdd']);
 
-gulp.task('default', ['clean', 'copyFiles']);
+gulp.task('default', ['copyFiles']);

@@ -13,6 +13,8 @@ module.exports = function (config) {
       'test/**/*.js',
       { pattern: 'build/lib/**/*.js', watched: false },
       'build/views/**/*.html',
+      'build/index.html',
+      'build/styles/**/*.css',
       { pattern: 'build/scripts/**/*.js' }
     ],
 
