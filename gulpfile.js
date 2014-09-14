@@ -58,4 +58,4 @@ gulp.task('developClient', ['bower-files', 'serve']);
 
 gulp.task('develop', ['developClient', 'tdd']);
 
-gulp.task('default', ['lint', 'coveralls']);
+gulp.task('default', ['lint']);
