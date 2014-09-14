@@ -20,6 +20,7 @@
   "smarttabs": true,
   "globals": {
     "$": false,
-    "ReconnectingWebSocket": false
+    "ReconnectingWebSocket": false,
+    "angular": false
   }
 }

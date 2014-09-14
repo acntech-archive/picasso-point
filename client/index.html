@@ -2,16 +2,22 @@
 	<head>
 		<title>Draw Madness</title>
 	</head>
-	<body>
-		<p id="gyroX"></p>
-		<p id="gyroY"></p>
-		<p id="gyroZ"></p>
+	<body ng-app="clientApp">
+		<div ng-controller="ClientCtrl">
+			<input data-ng-hide="connected" type="text" placeholder="Insert your name" data-ng-model="user.name">
+			<button data-ng-hide="connected" data-ng-click="createUser()">Connect to canvas</button>
+			<p data-ng-show="connected" data-ng-model="points.x"></p>
+			<p data-ng-show="connected" data-ng-model="points.y"></p>
+			<p data-ng-show="connected" data-ng-model="infoText"></p>
+		</div>
 
 		<!-- BOWER COMPONENTS -->
 		<script type="text/javascript" src="lib/jquery.js"></script>
+		<script type="text/javascript" src="lib/angular.js"></script>
 		<script type="text/javascript" src="lib/reconnecting-websocket.js"></script>
 
 		<!-- HOME MADE BREWS -->
 		<script type="text/javascript" src="scripts/app.js"></script>
+		<script type="text/javascript" src="scripts/client-ctrl.js"></script>
 	</body>
 </html>

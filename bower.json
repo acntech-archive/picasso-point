@@ -23,6 +23,7 @@
     "jquery": "~2.1.1",
     "reconnectingWebsocket": "*",
     "pleasejs": "~0.2.1",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "angularjs": "~1.2.24"
   }
 }
