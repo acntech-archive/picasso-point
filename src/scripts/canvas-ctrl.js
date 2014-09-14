@@ -25,7 +25,7 @@ angular.module('clientApp.controllers').controller('CanvasCtrl', function ($scop
     }, 1000);
   }
 
-  var ws = new ReconnectingWebSocket('ws://picasso-point-server.herokuapp.com:5001/', 'canvas');
+  var ws = new ReconnectingWebSocket('ws://picasso-point-server.herokuapp.com', 'canvas');
   ws.onopen = function () {
     connected = true;
     console.log('connected to WebSocket');

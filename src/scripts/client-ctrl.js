@@ -17,6 +17,9 @@ angular.module('clientApp.controllers')
       y: 0
     };
     var drawPoints = [];
+    $.getJSON('http://picasso-point-server.herokuapp.com/port-number', function (res) {
+      console.log(res);
+    });
     var host = 'ws://picasso-point-server.herokuapp.com';
     var ws;
 
