@@ -7,9 +7,12 @@
     width: document.documentElement.clientWidth
   };
   var canvas = $('canvas')[0];
+  var context = canvas.getContext('2d');
+
+  var connected = false;
+
   canvas.height = viewPort.height;
   canvas.width = viewPort.width;
-  var context = canvas.getContext('2d');
 
   function drawPixel(x, y, r, g, b, a) {
     console.log('drawing');
@@ -22,6 +25,7 @@
 
   var ws = new ReconnectingWebSocket('ws://localhost:5001/');
   ws.onopen = function () {
+    connected = true;
     console.log('connected to WebSocket');
   };
 

@@ -4,22 +4,27 @@
   var gyroX = $('#gyroX');
   var gyroY = $('#gyroY');
   var gyroZ = $('#gyroZ');
-  var melding = [];
+  var drawPoints = [];
   var host = 'ws://192.168.43.23:5000/';
   var ws;
+  var connected = false;
   gyroX.text('0');
-  gyroY.text('Sendt:');
+  gyroY.text('0');
+  gyroZ.text('Not connected to WebSocket..');
 
   ws = new ReconnectingWebSocket(host);
 
   ws.onopen = function () {
+    connected = true;
     console.log('Connected');
+    gyroZ.text('Connected to WebSocket! :D');
     ws.send(JSON.stringify({
       user: 'BRUKERNAVN'
     }));
   };
 
   ws.onclosed = function () {
+    connected = false;
     console.log('Disconnected');
   };
 
@@ -43,18 +48,20 @@
   }
 
   $('body').on('mousedown mousemove touchstart touchmove touchend', function (e) {
-    var coord = pointerEventToXY(e);
-    melding.push(coord);
+    if (connected) {
+      var coord = pointerEventToXY(e);
+      drawPoints.push(coord);
 
-    if (melding.length >= 10) {
-      ws.send(JSON.stringify(melding));
-      gyroZ.text('Sendt: ' + JSON.stringify(coord));
+      if (drawPoints.length >= 10) {
+        ws.send(JSON.stringify(drawPoints));
+        gyroZ.text('Coordinates sent: ' + JSON.stringify(coord));
 
-      melding = [];
+        drawPoints = [];
+      }
+      console.log(coord);
+
+      gyroX.text(coord.x);
+      gyroY.text(coord.y);
     }
-    console.log(coord);
-
-    gyroX.text(coord.x);
-    gyroY.text(coord.y);
   });
 })();
