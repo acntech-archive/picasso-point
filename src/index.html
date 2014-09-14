@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>Draw Madness</title>
+	</head>
+	<body ng-app="clientApp">
+		<div ng-controller="ClientCtrl">
+			<input ng-hide="connected" type="text" placeholder="Insert your name" ng-model="user.name">
+			<button ng-hide="connected" ng-click="createUser()">Connect to canvas</button>
+			<p ng-show="connected" ng-model="points.x"></p>
+			<p ng-show="connected" ng-model="points.y"></p>
+			<p ng-show="connected" ng-model="infoText"></p>
+		</div>
+
+		<!-- BOWER COMPONENTS -->
+		<script type="text/javascript" src="lib/jquery.js"></script>
+		<script type="text/javascript" src="lib/angular.js"></script>
+		<script type="text/javascript" src="lib/reconnecting-websocket.js"></script>
+
+		<!-- HOME MADE BREWS -->
+		<script type="text/javascript" src="scripts/app.js"></script>
+		<script type="text/javascript" src="scripts/client-ctrl.js"></script>
+	</body>
+</html>
