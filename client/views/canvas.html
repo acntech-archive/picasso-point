@@ -1,16 +1,32 @@
 <html>
-	<head>
-		<title>Canvas</title>
-	</head>
-	<body>
-		<canvas id="canvas"></canvas>
+<head>
+    <title>Canvas</title>
+    <link rel="stylesheet" href="../styles/canvas.css">
+</head>
 
-		<!-- BOWER COMPONENTS -->
-		<script type="text/javascript" src="../lib/lodash.compat.js"></script>
-		<script type="text/javascript" src="../lib/jquery.js"></script>
-		<script type="text/javascript" src="../lib/reconnecting-websocket.js"></script>
-		<script type="text/javascript" src="../lib/Please.js"></script>
-		<!-- HOME MADE BREWS -->
-		<script type="text/javascript" src="../scripts/canvas.js"></script>
-	</body>
+<body ng-app="clientApp" ng-controller="CanvasCtrl">
+<div>
+    <ul id="userList">
+        <li ng-repeat="(name, color) in drawers">
+            <span style="background-color: {{ color }};">{{name}}</span>
+        </li>
+    </ul>
+
+    <p> HALLA: {{ drawers.length }}</p>
+
+    <canvas id="canvas"></canvas>
+</div>
+
+
+<!-- BOWER COMPONENTS -->
+<script type="text/javascript" src="../lib/lodash.compat.js"></script>
+<script type="text/javascript" src="../lib/jquery.js"></script>
+<script type="text/javascript" src="../lib/reconnecting-websocket.js"></script>
+<script type="text/javascript" src="../lib/Please.js"></script>
+<script type="text/javascript" src="../lib/angular.js"></script>
+<!-- HOME MADE BREWS -->
+<script type="text/javascript" src="../scripts/app.js"></script>
+<script type="text/javascript" src="../scripts/canvas-ctrl.js"></script>
+
+</body>
 </html>

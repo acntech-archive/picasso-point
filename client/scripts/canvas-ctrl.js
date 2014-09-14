@@ -1,22 +1,24 @@
-(function () {
-  'use strict';
+'use strict';
 
+angular.module('clientApp.controllers').controller('CanvasCtrl', function ($scope) {
   //var uniqUsers = [];
   var viewPort = {
     height: document.documentElement.clientHeight,
-    width: document.documentElement.clientWidth
+    width: document.documentElement.clientWidth - 200
   };
   var canvas = $('canvas')[0];
   var context = canvas.getContext('2d');
 
   var connected = false;
 
+  $scope.drawers = {};
+
   canvas.height = viewPort.height;
   canvas.width = viewPort.width;
 
-  function drawPixel(x, y, r, g, b, a) {
+  function drawPixel(x, y, color) {
     console.log('drawing');
-    context.fillStyle = 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+    context.fillStyle = color;
     context.fillRect(x, y, 10, 10);
     setTimeout(function () {
       context.clearRect(x, y, 10, 10);
@@ -31,10 +33,15 @@
 
   ws.onmessage = function (msg) {
     var data = JSON.parse(msg.data);
-    //var userName = data.user;
+    var userName = data.userId;
 
-    data.forEach(function (e) {
-      drawPixel(e.x, e.y, 255, 0, 255, 1);
-    });
+    $scope.drawers[userName] = data.color;
+    $scope.$apply();
+
+    if (data.points) {
+      data.points.forEach(function (e) {
+        drawPixel(e.x, e.y, data.color);
+      });
+    }
   };
-})();
+});

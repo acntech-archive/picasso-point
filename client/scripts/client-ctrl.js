@@ -17,7 +17,7 @@ angular.module('clientApp.controllers')
       y: 0
     };
     var drawPoints = [];
-    var host = 'ws://192.168.43.23:5000/';
+    var host = 'ws://192.168.43.32:5000/';
     var ws;
 
     function pointerEventToXY(e) {
@@ -62,7 +62,7 @@ angular.module('clientApp.controllers')
       };
 
       ws.onmessage = function (msg) {
-        var data = JSON.parse(msg);
+        var data = JSON.parse(msg.data);
         if (data.user && data.color) {
           console.log('Recieved username and color');
           $scope.connected = true;

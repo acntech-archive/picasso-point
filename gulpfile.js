@@ -8,6 +8,8 @@ var coveralls = require('gulp-coveralls');
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 var karma = require('karma').server;
+var stylus = require('gulp-stylus');
+var nib = require('nib');
 
 gulp.task('lint', function () {
   return gulp.src(['client/scripts/**/*.js'])
@@ -54,7 +56,17 @@ gulp.task('bower-files', function () {
     .pipe(gulp.dest('client/lib'));
 });
 
-gulp.task('developClient', ['bower-files', 'serve']);
+gulp.task('styles', function () {
+  gulp.src('./client/styles/**/*.styl')
+    .pipe(stylus({use: [nib()]}))
+    .pipe(gulp.dest('./client/styles'));
+});
+
+gulp.task('watch', function () {
+  gulp.watch('./client/styles/**/*.styl', ['styles']);
+});
+
+gulp.task('developClient', ['bower-files', 'watch', 'serve']);
 
 gulp.task('develop', ['developClient', 'tdd']);
 
