@@ -52,7 +52,7 @@ gulp.task('bowerfiles', function () {
     .pipe(gulp.dest('./build/lib'));
 });
 
-gulp.task('scripts', ['lint'], function () {
+gulp.task('scripts', function () {
   gulp.src('./src/scripts/**/*.js')
     .pipe(gulp.dest('./build/scripts'));
 });
