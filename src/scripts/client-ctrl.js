@@ -17,7 +17,7 @@ angular.module('clientApp.controllers')
       y: 0
     };
     var drawPoints = [];
-    var host = 'ws://picasso-point-server.herokuapp.com:5001';
+    var host = 'ws://picasso-point-server.herokuapp.com';
     var ws;
 
     function pointerEventToXY(e) {
@@ -41,7 +41,7 @@ angular.module('clientApp.controllers')
 
     $scope.createUser = function () {
       console.log(ws);
-      ws = new ReconnectingWebSocket(host);
+      ws = new ReconnectingWebSocket(host, 'client');
       console.log(ws);
       ws.onopen = function () {
         console.log('Connected');
