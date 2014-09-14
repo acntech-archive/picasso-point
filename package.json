@@ -1,5 +1,5 @@
 {
-  "name": "IoT",
+  "name": "picasso-point-client",
   "version": "0.0.1",
   "description": "Our awesome project",
   "main": "index.js",

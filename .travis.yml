@@ -4,5 +4,8 @@ node_js:
 - '0.10'
 after_success: cat coverage/lcov.info | node_modules/.bin/coveralls --verbose
 deploy:
+  provider: heroku
   api_key:
     secure: UYr41iYQJEGYEBRgqZQ1lzNF9nc3x8RsVKqUkq+w/4D0pfIK6OgNhOw6wmwwIJSojlg5IZnffS0B/941eT4E41CqiO/GFoQABXtn9zLNpwGiY7eW5hx2J+bcpJNdLmb0crMJw7Uf23hGn9GLkGMKAFqdKboHiTdUBHMqHeVP0R0=
+  app:
+    master: picasso-point-server
