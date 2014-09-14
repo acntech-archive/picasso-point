@@ -17,7 +17,7 @@ angular.module('clientApp.controllers')
       y: 0
     };
     var drawPoints = [];
-    var host = 'ws://192.168.43.32:5000/';
+    var host = 'ws://picasso-point-server.herokuapp.com:5001';
     var ws;
 
     function pointerEventToXY(e) {
