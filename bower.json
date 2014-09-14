@@ -1,0 +1,28 @@
+{
+  "name": "IoT",
+  "version": "0.0.1",
+  "homepage": "https://github.com/SimenB/IoT",
+  "authors": [
+    "Simen Bekkhus <sbekkhus91@gmail.com>",
+    "Kristinn Thor Johannsson <spiffern@gmail.com>"
+  ],
+  "description": "Our awesome project",
+  "keywords": [
+    "iot",
+    "hot"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "reconnectingWebsocket": "*",
+    "pleasejs": "~0.2.1",
+    "lodash": "~2.4.1"
+  }
+}
