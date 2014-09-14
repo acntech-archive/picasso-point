@@ -8,6 +8,10 @@ angular.module('clientApp.controllers')
     $scope.user = {
       name: ''
     };
+    $scope.serverUser = {
+      userId: '',
+      color: ''
+    };
     $scope.points = {
       x: 0,
       y: 0
@@ -15,22 +19,6 @@ angular.module('clientApp.controllers')
     var drawPoints = [];
     var host = 'ws://192.168.43.23:5000/';
     var ws;
-
-    ws = new ReconnectingWebSocket(host);
-
-    ws.onopen = function () {
-      $scope.connected = true;
-      console.log('Connected');
-      $scope.infoText = 'Connected to canvas!';
-      ws.send(JSON.stringify({
-        user: 'BRUKERNAVN'
-      }));
-    };
-
-    ws.onclosed = function () {
-      $scope.connected = false;
-      console.log('Disconnected');
-    };
 
     function pointerEventToXY(e) {
       var out = {
@@ -51,16 +39,53 @@ angular.module('clientApp.controllers')
       return out;
     }
 
+    $scope.createUser = function () {
+      console.log(ws);
+      ws = new ReconnectingWebSocket(host);
+      console.log(ws);
+      ws.onopen = function () {
+        console.log('Connected');
+        if (!$scope.connected) {
+          console.log('Sending username');
+          ws.send(JSON.stringify({
+            user: $scope.user.name
+          }));
+        }
+        $scope.infoText = 'Connected to canvas!';
+      };
+
+      ws.onclosed = function () {
+        $scope.connected = false;
+        $scope.serverUser.user = '';
+        $scope.serverUser.color = '';
+        console.log('Disconnected');
+      };
+
+      ws.onmessage = function (msg) {
+        var data = JSON.parse(msg);
+        if (data.user && data.color) {
+          console.log('Recieved username and color');
+          $scope.connected = true;
+          $scope.serverUser.userId = data.user;
+          $scope.serverUser.color = data.color;
+        }
+      };
+    };
+
     $('body').on('mousedown mousemove touchstart touchmove touchend', function (e) {
       var coord = pointerEventToXY(e);
       $scope.points.x = coord.x;
       $scope.points.y = coord.y;
       console.log(coord);
-      if ($scope.connected) {
+      if ($scope.connected && $scope.serverUser.userId && $scope.serverUser.color) {
         drawPoints.push(coord);
 
         if (drawPoints.length >= 10) {
-          ws.send(JSON.stringify(drawPoints));
+          ws.send(JSON.stringify({
+            userId: $scope.serverUser.userId,
+            color: $scope.serverUser.color,
+            points: drawPoints
+          }));
           $scope.infoText = 'Coordinates sent: ' + JSON.stringify(coord);
 
           drawPoints = [];
